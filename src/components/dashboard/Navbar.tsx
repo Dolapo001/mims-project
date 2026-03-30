@@ -1,13 +1,10 @@
 "use client"
 
 import { useState, useRef, useEffect } from "react"
-import { Bell, Settings, LogOut, Target } from "lucide-react"
+import { Bell, Settings, Target } from "lucide-react"
 import Link from "next/link"
+import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/ThemeToggle"
-
-interface NavbarProps {
-  title?: string
-}
 
 const NOTIFICATIONS = [
   { id: 1, text: "Prediction complete — Instagram recommended", time: "2 min ago", unread: true },
@@ -15,7 +12,15 @@ const NOTIFICATIONS = [
   { id: 3, text: "Weekly digest is ready to review", time: "Yesterday", unread: false },
 ]
 
-export function Navbar({ title = "AdWise AI" }: NavbarProps) {
+function getTitle(pathname: string) {
+  if (pathname.includes("/predictions")) return "Predictions"
+  if (pathname.includes("/history")) return "History"
+  if (pathname.includes("/settings")) return "Settings"
+  return "Dashboard"
+}
+
+export function Navbar() {
+  const pathname = usePathname()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
   const notifRef = useRef<HTMLDivElement>(null)
@@ -45,7 +50,9 @@ export function Navbar({ title = "AdWise AI" }: NavbarProps) {
           </div>
           <span className="font-bold text-slate-900 dark:text-white tracking-tight text-base">AdWise AI</span>
         </Link>
-        <span className="hidden lg:block text-base font-semibold text-slate-700 dark:text-slate-200">{title}</span>
+        <span className="hidden lg:block text-base font-semibold text-slate-700 dark:text-slate-200">
+          {getTitle(pathname)}
+        </span>
       </div>
 
       <div className="flex items-center gap-2">
@@ -125,7 +132,6 @@ export function Navbar({ title = "AdWise AI" }: NavbarProps) {
                   onClick={() => setShowProfile(false)}
                   className="w-full flex items-center gap-3 px-4 py-2.5 text-sm text-red-600 dark:text-red-400 hover:bg-red-50 dark:hover:bg-red-900/20 transition-colors"
                 >
-                  <LogOut className="w-4 h-4" />
                   Sign out
                 </button>
               </div>
