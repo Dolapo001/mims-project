@@ -1,6 +1,6 @@
 "use client"
 
-import React, { useState } from "react"
+import { useState } from "react"
 import Link from "next/link"
 import { Eye, EyeOff, Target, Loader2 } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
@@ -13,8 +13,7 @@ export default function LoginPage() {
   const [isLoading, setIsLoading] = useState(false)
   const [error, setError] = useState("")
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const handleLogin = async () => {
     setError("")
 
     if (!email || !password) {
@@ -29,7 +28,6 @@ export default function LoginPage() {
     setIsLoading(true)
     try {
       await login(email)
-      // Redirect handled by AuthContext login
     } catch (err: any) {
       setError(err?.message || "Login failed")
       setIsLoading(false)
@@ -56,7 +54,7 @@ export default function LoginPage() {
             </div>
           )}
 
-          <form onSubmit={handleSubmit} className="space-y-4">
+          <div className="space-y-4">
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Email</label>
               <input
@@ -82,8 +80,8 @@ export default function LoginPage() {
                   value={password}
                   onChange={e => setPassword(e.target.value)}
                   placeholder="••••••••"
-                  required
                   autoComplete="current-password"
+                  onKeyDown={e => { if (e.key === "Enter") handleLogin() }}
                   className="w-full px-4 py-3 bg-slate-50 dark:bg-slate-950 border border-slate-200 dark:border-slate-800 rounded-xl text-sm pr-11 focus:outline-none focus:bg-white dark:focus:bg-slate-900 focus:border-blue-400 dark:focus:border-blue-500 focus:ring-4 focus:ring-blue-100 dark:focus:ring-blue-900/30 transition-all text-slate-900 dark:text-white placeholder:text-slate-400 dark:placeholder:text-slate-500"
                 />
                 <button
@@ -98,7 +96,8 @@ export default function LoginPage() {
 
             <button
               id="login-submit"
-              type="submit"
+              type="button"
+              onClick={handleLogin}
               disabled={isLoading}
               className="w-full bg-slate-900 dark:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-slate-800 dark:hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition-all active:scale-[0.98] flex items-center justify-center gap-2"
             >
@@ -106,7 +105,7 @@ export default function LoginPage() {
                 <><Loader2 className="w-4 h-4 animate-spin" /> Signing in...</>
               ) : "Sign In"}
             </button>
-          </form>
+          </div>
 
           <p className="text-center text-sm text-slate-400">
             No account?{" "}
