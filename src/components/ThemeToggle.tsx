@@ -4,7 +4,7 @@ import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
 import { Sun, Moon, Monitor } from "lucide-react"
 
-const THEMES = ["dark", "light", "system"] as const
+const THEMES = ["light", "dark", "system"] as const
 type Theme = typeof THEMES[number]
 
 const THEME_CONFIG: Record<Theme, { label: string; icon: React.ElementType; iconClass: string }> = {
