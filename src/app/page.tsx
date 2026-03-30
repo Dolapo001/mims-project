@@ -15,14 +15,11 @@ export default function LandingPage() {
           <span className="font-bold text-xl text-slate-900 tracking-tight">AdWise AI</span>
         </div>
         <div className="flex items-center gap-4">
-          <Link href="/login" className="text-sm font-bold text-slate-600 hover:text-slate-900 transition-colors">
-            Sign In
-          </Link>
           <Link 
-            href="/signup" 
+            href="/dashboard" 
             className="bg-slate-900 text-white text-sm font-bold px-5 py-2.5 rounded-xl hover:bg-slate-800 transition-all active:scale-[0.98] shadow-lg shadow-slate-200"
           >
-            Get Started
+            Launch Dashboard
           </Link>
         </div>
       </header>
@@ -44,17 +41,11 @@ export default function LandingPage() {
 
         <div className="flex flex-col sm:flex-row gap-4 w-full sm:w-auto">
           <Link 
-            href="/signup" 
+            href="/dashboard" 
             className="bg-blue-600 text-white font-bold px-8 py-4 rounded-2xl hover:bg-blue-700 transition-all active:scale-[0.98] shadow-xl shadow-blue-100 flex items-center justify-center gap-2 text-lg"
           >
-            Start Free Trial
+            Go to Dashboard
             <ArrowRight className="w-5 h-5" />
-          </Link>
-          <Link 
-            href="/login" 
-            className="bg-white border border-slate-200 text-slate-900 font-bold px-8 py-4 rounded-2xl hover:bg-slate-50 transition-all active:scale-[0.98] flex items-center justify-center gap-2 text-lg shadow-sm"
-          >
-            Login to Dashboard
           </Link>
         </div>
 
@@ -94,3 +85,4 @@ export default function LandingPage() {
     </div>
   )
 }
+

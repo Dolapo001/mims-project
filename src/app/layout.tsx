@@ -2,7 +2,6 @@ import type { Metadata, Viewport } from "next"
 import { Geist, Geist_Mono } from "next/font/google"
 import "./globals.css"
 import { ThemeProvider } from "@/components/ThemeProvider"
-import { AuthProvider } from "@/context/AuthContext"
 import { PredictionProvider } from "@/context/PredictionContext"
 
 const geistSans = Geist({ variable: "--font-geist-sans", subsets: ["latin"] })
@@ -42,13 +41,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
       </head>
       <body className="antialiased bg-slate-50 text-slate-900 dark:bg-slate-950 dark:text-slate-50 transition-colors duration-300" suppressHydrationWarning>
         <ThemeProvider>
-          <AuthProvider>
-            <PredictionProvider>
-              {children}
-            </PredictionProvider>
-          </AuthProvider>
+          <PredictionProvider>
+            {children}
+          </PredictionProvider>
         </ThemeProvider>
       </body>
     </html>
   )
 }
+

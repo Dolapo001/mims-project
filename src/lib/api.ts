@@ -8,6 +8,7 @@ const api = axios.create({
   headers: { 'Content-Type': 'application/json' },
 })
 
+// Prediction API
 export const predictCampaign = async (data: PredictionRequest): Promise<PredictionResponse> => {
   // Mock API implementation since there's no backend provided
   await new Promise(resolve => setTimeout(resolve, 1500))
@@ -40,3 +41,5 @@ export const predictCampaign = async (data: PredictionRequest): Promise<Predicti
 }
 
 export default api
+
+
