@@ -2,13 +2,11 @@
 
 import React, { useState } from "react"
 import Link from "next/link"
-import { useRouter } from "next/navigation"
 import { Eye, EyeOff, Target, Loader2 } from "lucide-react"
 import { useAuth } from "@/context/AuthContext"
 
 export default function SignupPage() {
   const { login } = useAuth()
-  const router = useRouter()
   const [name, setName] = useState("")
   const [email, setEmail] = useState("")
   const [password, setPassword] = useState("")
@@ -18,7 +16,6 @@ export default function SignupPage() {
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
-    console.log("Submitting signup form...")
     setError("")
 
     if (!name || !email || !password) {
@@ -32,7 +29,7 @@ export default function SignupPage() {
 
     setIsLoading(true)
     try {
-      await login(email)
+      await login(email, name)
       // Redirect handled by AuthContext login
     } catch (err: any) {
       setError(err?.message || "Signup failed")
@@ -60,7 +57,7 @@ export default function SignupPage() {
             </div>
           )}
 
-          <div className="space-y-4">
+          <form onSubmit={handleSubmit} className="space-y-4">
             <div className="space-y-1.5">
               <label className="text-xs font-bold text-slate-500 dark:text-slate-400 uppercase tracking-widest">Full Name</label>
               <input
@@ -117,8 +114,7 @@ export default function SignupPage() {
 
             <button
               id="signup-submit"
-              type="button"
-              onClick={() => handleSubmit({ preventDefault: () => {} } as any)}
+              type="submit"
               disabled={isLoading}
               className="w-full bg-slate-900 dark:bg-blue-600 text-white font-bold py-3 px-4 rounded-xl hover:bg-slate-800 dark:hover:bg-blue-700 disabled:opacity-60 disabled:cursor-not-allowed transition-all active:scale-[0.98] flex items-center justify-center gap-2"
             >
@@ -126,7 +122,7 @@ export default function SignupPage() {
                 <><Loader2 className="w-4 h-4 animate-spin" /> Creating account...</>
               ) : "Create Account"}
             </button>
-          </div>
+          </form>
 
           <p className="text-center text-sm text-slate-400">
             Already have an account?{" "}

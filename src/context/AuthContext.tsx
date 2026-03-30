@@ -9,7 +9,7 @@ interface AuthContextType {
   user: User | null
   isAuthenticated: boolean
   isLoading: boolean
-  login: (email: string) => Promise<void>
+  login: (email: string, name?: string) => Promise<void>
   logout: () => void
 }
 
@@ -35,19 +35,16 @@ export function AuthProvider({ children }: { children: ReactNode }) {
     }
   }, [])
 
-  const login = async (email: string) => {
-    console.error("DEBUG: AuthContext login called for", email)
+  const login = async (email: string, name?: string) => {
     setIsLoading(true)
     // Simulate API delay
     await new Promise(resolve => setTimeout(resolve, 1000))
-    
-    const mockUser = { id: "1", email, name: email.split("@")[0] }
-    console.error("DEBUG: AuthContext setUser calling with", mockUser)
+
+    const mockUser = { id: "1", email, name: name || email.split("@")[0] }
     setUser(mockUser)
     localStorage.setItem("auth_user", JSON.stringify(mockUser))
     setIsLoading(false)
     router.replace("/dashboard")
-    console.error("DEBUG: router.replace('/dashboard') was called")
   }
 
   const logout = () => {
