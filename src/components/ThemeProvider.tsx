@@ -31,8 +31,8 @@ export function ThemeProvider({
     // It passes `theme`, `setTheme`, `resolvedTheme`, and `systemTheme` down the tree.
     <NextThemesProvider 
       attribute="class" // Use class-based switching (adds .dark to <html>)
-      defaultTheme="dark" // Default to dark mode
-      enableSystem={false} // Disable OS preference — user controls theme manually
+      defaultTheme="dark" // Default to dark mode on first visit
+      enableSystem={true} // Allow system theme when user selects it
       disableTransitionOnChange // Prevents CSS transition bugs when flipping themes
       storageKey="adwise-theme" // Extensible persistence in localStorage
       {...props}
