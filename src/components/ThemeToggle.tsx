@@ -20,7 +20,7 @@ export function ThemeToggle() {
   useEffect(() => setMounted(true), [])
 
   if (!mounted) {
-    return <div className="w-24 h-8 rounded-full animate-pulse bg-slate-100 dark:bg-slate-800" />
+    return <div className="w-20 h-7 rounded-full animate-pulse bg-slate-200 dark:bg-slate-700 border border-slate-300 dark:border-slate-600" />
   }
 
   const current = (theme as Theme) ?? "dark"
