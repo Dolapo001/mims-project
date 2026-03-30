@@ -2,7 +2,7 @@
 
 import { useTheme } from "next-themes"
 import { useEffect, useState } from "react"
-import { Sun, Moon, Monitor } from "lucide-react"
+import { Sun, Moon, Laptop } from "lucide-react"
 
 const THEMES = ["light", "dark", "system"] as const
 type Theme = typeof THEMES[number]
@@ -10,7 +10,7 @@ type Theme = typeof THEMES[number]
 const THEME_CONFIG: Record<Theme, { label: string; icon: React.ElementType; iconClass: string }> = {
   dark:   { label: "Dark",   icon: Moon,    iconClass: "text-blue-400" },
   light:  { label: "Light",  icon: Sun,     iconClass: "text-amber-400" },
-  system: { label: "System", icon: Monitor, iconClass: "text-slate-400 dark:text-slate-300" },
+  system: { label: "System", icon: Laptop, iconClass: "text-slate-400 dark:text-slate-300" },
 }
 
 export function ThemeToggle() {
