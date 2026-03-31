@@ -1,0 +1,18 @@
+{"timestamp":"01:07:34.404","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:34.420","source":"Server","level":"ERROR","message":"⨯ \"unhandledRejection:\" Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:34.423","source":"Server","level":"ERROR","message":"⨯ \"unhandledRejection: \" Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:34.528","source":"Server","level":"ERROR","message":"⨯ PageNotFoundError: Cannot find module for page: route not found /_not-found/page"}
+{"timestamp":"01:07:53.185","source":"Browser","level":"ERROR","message":"uncaughtError: Error: Internal Next.js error: Router action dispatched before initialization."}
+{"timestamp":"01:07:53.185","source":"Browser","level":"ERROR","message":"uncaughtError: Error: Internal Next.js error: Router action dispatched before initialization."}
+{"timestamp":"01:07:35.530","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, open '/home/adedolapo/Downloads/NewProjects/Mims' Project/.next/dev/static/development/_buildManifest.js.tmp.ifx6e5efuj'"}
+{"timestamp":"01:07:35.532","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.538","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.540","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.548","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.550","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.557","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.559","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.567","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.569","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.574","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
+{"timestamp":"01:07:35.578","source":"Server","level":"ERROR","message":"Error: ENOENT: no such file or directory, scandir '/home/adedolapo/Downloads/NewProjects/Mims' Project/src/app'"}
