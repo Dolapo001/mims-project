@@ -68,3 +68,7 @@ logs/
 .DS_Store
 Thumbs.db
 desktop.ini
+
+# Whitelist frontend source libraries
+!frontend/src/lib/
+

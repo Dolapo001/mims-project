@@ -34,3 +34,20 @@ class PredictionRecord(models.Model):
 
     def __str__(self):
         return f"{self.user.username} | {self.industry} | {self.best_platform} ({self.created_at.date()})"
+
+
+class Notification(models.Model):
+    """
+    User notification record to store activity notifications and alerts.
+    """
+    user = models.ForeignKey(User, on_delete=models.CASCADE, related_name='notifications')
+    text = models.CharField(max_length=255)
+    unread = models.BooleanField(default=True)
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    class Meta:
+        ordering = ['-created_at']
+
+    def __str__(self):
+        return f"{self.user.username} | {self.text[:30]} | {'Unread' if self.unread else 'Read'}"
+

@@ -25,11 +25,14 @@ interface PredictionChartProps {
 const COLORS = ['#2563eb', '#3b82f6', '#60a5fa', '#93c5fd']
 
 export function PredictionChart({ data }: PredictionChartProps) {
-  const { resolvedTheme } = useTheme()
+  const { theme } = useTheme()
   const [mounted, setMounted] = useState(false)
   useEffect(() => setMounted(true), [])
 
-  const isDark = mounted && resolvedTheme === "dark"
+  const isDark = mounted && (
+    theme === "dark" ||
+    (theme === "system" && typeof window !== "undefined" && window.matchMedia("(prefers-color-scheme: dark)").matches)
+  )
 
   const chartData = data.map(item => ({
     ...item,

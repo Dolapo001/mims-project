@@ -6,6 +6,8 @@ import Link from "next/link"
 import { usePathname } from "next/navigation"
 import { ThemeToggle } from "@/components/ThemeToggle"
 import { cn } from "@/lib/utils"
+import { useAuth } from "@/context/AuthContext"
+import { getNotifications, markNotificationRead, markAllNotificationsRead, NotificationData } from "@/lib/api"
 
 function getTitle(pathname: string) {
   if (pathname.includes("/predictions")) return "Predictions"
@@ -18,25 +20,55 @@ export function Navbar() {
   const pathname = usePathname()
   const [showNotifications, setShowNotifications] = useState(false)
   const [showProfile, setShowProfile] = useState(false)
+  const { user, logout } = useAuth()
   
-  const [notifications, setNotifications] = useState([
-    { id: 1, text: "Prediction complete — Instagram recommended", time: "2 min ago", unread: true },
-    { id: 2, text: "Budget threshold reached (₦500,000)", time: "1 hr ago", unread: true },
-    { id: 3, text: "Weekly digest is ready to review", time: "Yesterday", unread: false },
-  ])
+  const [notifications, setNotifications] = useState<NotificationData[]>([])
 
   const notifRef = useRef<HTMLDivElement>(null)
   const profileRef = useRef<HTMLDivElement>(null)
 
-  const markAllAsRead = () => {
-    setNotifications(prev => prev.map(n => ({ ...n, unread: false })))
+  const fetchNotifications = useCallback(async () => {
+    try {
+      const data = await getNotifications()
+      setNotifications(data)
+    } catch (err) {
+      console.error("Failed to fetch notifications:", err)
+    }
+  }, [])
+
+  useEffect(() => {
+    if (user) {
+      fetchNotifications()
+    }
+  }, [user, fetchNotifications])
+
+  const markAllAsRead = async () => {
+    try {
+      await markAllNotificationsRead()
+      setNotifications(prev => prev.map(n => ({ ...n, unread: false })))
+    } catch (err) {
+      console.error("Failed to mark all notifications as read:", err)
+    }
+  }
+
+  const handleMarkSingleRead = async (id: number) => {
+    try {
+      await markNotificationRead(id)
+      setNotifications(prev => prev.map(n => n.id === id ? { ...n, unread: false } : n))
+    } catch (err) {
+      console.error("Failed to mark notification as read:", err)
+    }
   }
 
   // Use stable handlers
   const toggleNotifications = (e: React.MouseEvent) => {
     e.stopPropagation()
-    setShowNotifications(!showNotifications)
+    const nextState = !showNotifications
+    setShowNotifications(nextState)
     setShowProfile(false)
+    if (nextState && user) {
+      fetchNotifications()
+    }
   }
 
   const toggleProfile = (e: React.MouseEvent) => {
@@ -119,6 +151,7 @@ export function Navbar() {
                 {notifications.map(n => (
                   <div
                     key={n.id}
+                    onClick={() => handleMarkSingleRead(n.id)}
                     className={`flex gap-4 px-5 py-4 hover:bg-slate-50 dark:hover:bg-slate-800/50 cursor-pointer transition-colors ${n.unread ? "bg-blue-50/50 dark:bg-blue-900/10" : ""}`}
                   >
                     <div className={`mt-1.5 w-2 h-2 rounded-full ${n.unread ? "bg-blue-500" : "bg-slate-300 dark:bg-slate-600"}`} />
@@ -143,13 +176,13 @@ export function Navbar() {
             )}
             aria-label="Toggle profile menu"
           >
-            AD
+            {(user?.username || "AD").substring(0, 2).toUpperCase()}
           </button>
 
           {showProfile && (
             <div className="absolute right-0 top-[calc(100%+12px)] w-56 bg-white dark:bg-slate-900 border border-slate-200 dark:border-slate-800 rounded-3xl shadow-2xl z-[110] overflow-hidden animate-in fade-in zoom-in-95 duration-200">
               <div className="px-5 py-4 border-b border-slate-50 dark:border-slate-800 bg-slate-50/30 dark:bg-slate-800/30">
-                <p className="text-sm font-bold text-slate-900 dark:text-white leading-none">Adedolapo Atiba</p>
+                <p className="text-sm font-bold text-slate-900 dark:text-white leading-none">{user?.username || "Adedolapo"}</p>
                 <p className="text-[10px] text-slate-400 dark:text-slate-500 mt-1.5 font-bold uppercase tracking-widest leading-none">Enterprise Plan</p>
               </div>
               <div className="p-2">
@@ -162,7 +195,10 @@ export function Navbar() {
                   Account Settings
                 </Link>
                 <button
-                  onClick={closeAll}
+                  onClick={() => {
+                    closeAll()
+                    logout()
+                  }}
                   className="w-full flex items-center gap-3 px-4 py-3 text-sm font-bold text-red-600 hover:bg-red-50 dark:hover:bg-red-900/10 rounded-2xl transition-all text-left cursor-pointer"
                 >
                   <LogOut className="w-4 h-4" />

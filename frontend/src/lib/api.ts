@@ -85,3 +85,38 @@ export const getPredictionDetail = async (id: string) => {
         throw new Error(error.response?.data?.error || 'Failed to retrieve analysis details.');
     }
 }
+
+export interface NotificationData {
+  id: number;
+  text: string;
+  unread: boolean;
+  time: string;
+}
+
+export const getNotifications = async (): Promise<NotificationData[]> => {
+  try {
+    return (await api.get('/notifications/')).data;
+  } catch (error) {
+    const err = error as { response?: { data?: { message?: string } }; message?: string };
+    throw new Error(err.response?.data?.message || err.message || 'Failed to fetch notifications.');
+  }
+};
+
+export const markNotificationRead = async (id: number) => {
+  try {
+    return (await api.post(`/notifications/${id}/read/`)).data;
+  } catch (error) {
+    const err = error as { response?: { data?: { message?: string } }; message?: string };
+    throw new Error(err.response?.data?.message || err.message || 'Failed to mark notification as read.');
+  }
+};
+
+export const markAllNotificationsRead = async () => {
+  try {
+    return (await api.post('/notifications/mark-all-read/')).data;
+  } catch (error) {
+    const err = error as { response?: { data?: { message?: string } }; message?: string };
+    throw new Error(err.response?.data?.message || err.message || 'Failed to mark all notifications as read.');
+  }
+};
+
