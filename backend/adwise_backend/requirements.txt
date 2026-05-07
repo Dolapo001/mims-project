@@ -1,0 +1,12 @@
+pandas
+numpy
+scikit-learn
+joblib
+matplotlib
+django-cors-headers
+djangorestframework
+djangorestframework-simplejwt
+gunicorn
+dj-database-url
+psycopg2-binary
+whitenoise
