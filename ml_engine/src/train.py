@@ -22,23 +22,15 @@ def get_base_estimators():
 
 def train_stacking_ensemble(X_train, y_train):
     """
-    Constructs and fits the final Stacking Ensemble model.
+    Constructs and fits a Random Forest model for faster training.
     """
-    print("\n--- Initializing Stacking Ensemble ---")
-    base_estimators = get_base_estimators()
-    final_estimator = LogisticRegression()
+    print("\n--- Initializing Random Forest Model ---")
+    model = RandomForestClassifier(n_estimators=100, max_depth=10, random_state=42)
 
-    # Create stacking model with 5-fold cross-validation
-    stacking_clf = StackingClassifier(
-        estimators=base_estimators,
-        final_estimator=final_estimator,
-        cv=5
-    )
-
-    print("Fitting StackingClassifier (this may take a few moments)...")
-    stacking_clf.fit(X_train, y_train)
+    print("Fitting Model (this is much faster)...")
+    model.fit(X_train, y_train)
     
-    return stacking_clf
+    return model
 
 def evaluate_performance(model, X_test, y_test, label_encoder):
     """
